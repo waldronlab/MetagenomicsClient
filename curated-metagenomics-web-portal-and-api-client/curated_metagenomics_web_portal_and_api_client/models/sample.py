@@ -9,15 +9,15 @@ T = TypeVar("T", bound="Sample")
 
 @attr.s(auto_attribs=True)
 class Sample:
-    """  """
+    """ """
 
     name: str
-    hash: Union[Unset, str] = UNSET
+    hash_: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
-        hash = self.hash
+        hash_ = self.hash_
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -26,8 +26,8 @@ class Sample:
                 "name": name,
             }
         )
-        if hash is not UNSET:
-            field_dict["hash"] = hash
+        if hash_ is not UNSET:
+            field_dict["hash"] = hash_
 
         return field_dict
 
@@ -36,11 +36,11 @@ class Sample:
         d = src_dict.copy()
         name = d.pop("name")
 
-        hash = d.pop("hash", UNSET)
+        hash_ = d.pop("hash", UNSET)
 
         sample = cls(
             name=name,
-            hash=hash,
+            hash_=hash_,
         )
 
         sample.additional_properties = d

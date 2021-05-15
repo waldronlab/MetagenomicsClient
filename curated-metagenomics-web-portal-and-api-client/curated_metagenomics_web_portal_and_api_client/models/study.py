@@ -7,7 +7,7 @@ T = TypeVar("T", bound="Study")
 
 @attr.s(auto_attribs=True)
 class Study:
-    """  """
+    """ """
 
     name: str
     pubmed: int

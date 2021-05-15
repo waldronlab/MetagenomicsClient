@@ -13,14 +13,14 @@ T = TypeVar("T", bound="NFModel")
 
 @attr.s(auto_attribs=True)
 class NFModel:
-    """  """
+    """ """
 
     run_name: str
     run_id: str
     event: str
     utc_time: datetime.datetime
-    trace: Union[NFModelTrace, Unset] = UNSET
-    metadata: Union[NFModelMetadata, Unset] = UNSET
+    trace: Union[Unset, NFModelTrace] = UNSET
+    metadata: Union[Unset, NFModelMetadata] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -41,10 +41,10 @@ class NFModel:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "run_name": run_name,
-                "run_id": run_id,
+                "runName": run_name,
+                "runId": run_id,
                 "event": event,
-                "utc_time": utc_time,
+                "utcTime": utc_time,
             }
         )
         if trace is not UNSET:
@@ -57,22 +57,26 @@ class NFModel:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        run_name = d.pop("run_name")
+        run_name = d.pop("runName")
 
-        run_id = d.pop("run_id")
+        run_id = d.pop("runId")
 
         event = d.pop("event")
 
-        utc_time = isoparse(d.pop("utc_time"))
+        utc_time = isoparse(d.pop("utcTime"))
 
-        trace: Union[NFModelTrace, Unset] = UNSET
         _trace = d.pop("trace", UNSET)
-        if not isinstance(_trace, Unset):
+        trace: Union[Unset, NFModelTrace]
+        if isinstance(_trace, Unset):
+            trace = UNSET
+        else:
             trace = NFModelTrace.from_dict(_trace)
 
-        metadata: Union[NFModelMetadata, Unset] = UNSET
         _metadata = d.pop("metadata", UNSET)
-        if not isinstance(_metadata, Unset):
+        metadata: Union[Unset, NFModelMetadata]
+        if isinstance(_metadata, Unset):
+            metadata = UNSET
+        else:
             metadata = NFModelMetadata.from_dict(_metadata)
 
         nf_model = cls(

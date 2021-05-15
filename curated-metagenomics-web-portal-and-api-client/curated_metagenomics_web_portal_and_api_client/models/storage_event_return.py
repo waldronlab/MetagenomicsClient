@@ -11,7 +11,7 @@ T = TypeVar("T", bound="StorageEventReturn")
 
 @attr.s(auto_attribs=True)
 class StorageEventReturn:
-    """  """
+    """ """
 
     kind: str
     id: str
@@ -24,9 +24,9 @@ class StorageEventReturn:
     time_created: datetime.datetime
     updated: datetime.datetime
     size: int
-    md5_hash: str
+    md_5_hash: str
     media_link: str
-    crc32c: str
+    crc_32_c: str
     etag: str
     event_type: str
     event_time: datetime.datetime
@@ -49,9 +49,9 @@ class StorageEventReturn:
         updated = self.updated.isoformat()
 
         size = self.size
-        md5_hash = self.md5_hash
+        md_5_hash = self.md_5_hash
         media_link = self.media_link
-        crc32c = self.crc32c
+        crc_32_c = self.crc_32_c
         etag = self.etag
         event_type = self.event_type
         event_time = self.event_time.isoformat()
@@ -75,9 +75,9 @@ class StorageEventReturn:
                 "timeCreated": time_created,
                 "updated": updated,
                 "size": size,
-                "md5Hash": md5_hash,
+                "md5Hash": md_5_hash,
                 "mediaLink": media_link,
-                "crc32c": crc32c,
+                "crc32c": crc_32_c,
                 "etag": etag,
                 "eventType": event_type,
                 "eventTime": event_time,
@@ -115,11 +115,11 @@ class StorageEventReturn:
 
         size = d.pop("size")
 
-        md5_hash = d.pop("md5Hash")
+        md_5_hash = d.pop("md5Hash")
 
         media_link = d.pop("mediaLink")
 
-        crc32c = d.pop("crc32c")
+        crc_32_c = d.pop("crc32c")
 
         etag = d.pop("etag")
 
@@ -145,9 +145,9 @@ class StorageEventReturn:
             time_created=time_created,
             updated=updated,
             size=size,
-            md5_hash=md5_hash,
+            md_5_hash=md_5_hash,
             media_link=media_link,
-            crc32c=crc32c,
+            crc_32_c=crc_32_c,
             etag=etag,
             event_type=event_type,
             event_time=event_time,

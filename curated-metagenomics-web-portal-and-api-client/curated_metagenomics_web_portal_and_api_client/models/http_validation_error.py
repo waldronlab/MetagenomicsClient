@@ -10,13 +10,13 @@ T = TypeVar("T", bound="HTTPValidationError")
 
 @attr.s(auto_attribs=True)
 class HTTPValidationError:
-    """  """
+    """ """
 
     detail: Union[Unset, List[ValidationError]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        detail: Union[Unset, List[Any]] = UNSET
+        detail: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.detail, Unset):
             detail = []
             for detail_item_data in self.detail:

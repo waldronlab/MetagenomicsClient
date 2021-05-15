@@ -49,7 +49,7 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: httpx.Response) -> Optional[Union[StorageEventCollection, HTTPValidationError]]:
+def _parse_response(*, response: httpx.Response) -> Optional[Union[HTTPValidationError, StorageEventCollection]]:
     if response.status_code == 200:
         response_200 = StorageEventCollection.from_dict(response.json())
 
@@ -61,7 +61,7 @@ def _parse_response(*, response: httpx.Response) -> Optional[Union[StorageEventC
     return None
 
 
-def _build_response(*, response: httpx.Response) -> Response[Union[StorageEventCollection, HTTPValidationError]]:
+def _build_response(*, response: httpx.Response) -> Response[Union[HTTPValidationError, StorageEventCollection]]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -78,7 +78,7 @@ def sync_detailed(
     start_date: Union[Unset, datetime.date] = UNSET,
     end_date: Union[Unset, datetime.date] = UNSET,
     filename_regex: Union[Unset, str] = UNSET,
-) -> Response[Union[StorageEventCollection, HTTPValidationError]]:
+) -> Response[Union[HTTPValidationError, StorageEventCollection]]:
     kwargs = _get_kwargs(
         client=client,
         limit=limit,
@@ -103,8 +103,8 @@ def sync(
     start_date: Union[Unset, datetime.date] = UNSET,
     end_date: Union[Unset, datetime.date] = UNSET,
     filename_regex: Union[Unset, str] = UNSET,
-) -> Optional[Union[StorageEventCollection, HTTPValidationError]]:
-    """  """
+) -> Optional[Union[HTTPValidationError, StorageEventCollection]]:
+    """ """
 
     return sync_detailed(
         client=client,
@@ -124,7 +124,7 @@ async def asyncio_detailed(
     start_date: Union[Unset, datetime.date] = UNSET,
     end_date: Union[Unset, datetime.date] = UNSET,
     filename_regex: Union[Unset, str] = UNSET,
-) -> Response[Union[StorageEventCollection, HTTPValidationError]]:
+) -> Response[Union[HTTPValidationError, StorageEventCollection]]:
     kwargs = _get_kwargs(
         client=client,
         limit=limit,
@@ -148,8 +148,8 @@ async def asyncio(
     start_date: Union[Unset, datetime.date] = UNSET,
     end_date: Union[Unset, datetime.date] = UNSET,
     filename_regex: Union[Unset, str] = UNSET,
-) -> Optional[Union[StorageEventCollection, HTTPValidationError]]:
-    """  """
+) -> Optional[Union[HTTPValidationError, StorageEventCollection]]:
+    """ """
 
     return (
         await asyncio_detailed(

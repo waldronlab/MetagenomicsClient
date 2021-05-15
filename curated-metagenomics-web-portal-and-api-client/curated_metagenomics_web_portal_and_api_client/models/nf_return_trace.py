@@ -7,7 +7,7 @@ T = TypeVar("T", bound="NFReturnTrace")
 
 @attr.s(auto_attribs=True)
 class NFReturnTrace:
-    """  """
+    """ """
 
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
