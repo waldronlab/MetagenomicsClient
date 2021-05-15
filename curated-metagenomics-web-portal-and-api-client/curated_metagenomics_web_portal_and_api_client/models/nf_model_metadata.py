@@ -7,7 +7,7 @@ T = TypeVar("T", bound="NFModelMetadata")
 
 @attr.s(auto_attribs=True)
 class NFModelMetadata:
-    """  """
+    """ """
 
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 

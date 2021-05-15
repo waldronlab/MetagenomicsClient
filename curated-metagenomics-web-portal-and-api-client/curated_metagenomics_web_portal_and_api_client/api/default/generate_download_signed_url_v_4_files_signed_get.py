@@ -4,28 +4,34 @@ import httpx
 
 from ...client import Client
 from ...models.http_validation_error import HTTPValidationError
-from ...types import Response
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
     *,
     client: Client,
-    id: str,
+    name: str,
 ) -> Dict[str, Any]:
-    url = "{}/nextflow/events/{id}".format(client.base_url, id=id)
+    url = "{}/files/signed".format(client.base_url)
 
     headers: Dict[str, Any] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
+
+    params: Dict[str, Any] = {
+        "name": name,
+    }
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     return {
         "url": url,
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
+        "params": params,
     }
 
 
-def _parse_response(*, response: httpx.Response) -> Optional[Union[None, HTTPValidationError]]:
+def _parse_response(*, response: httpx.Response) -> Optional[Union[HTTPValidationError, None]]:
     if response.status_code == 200:
         response_200 = None
 
@@ -37,7 +43,7 @@ def _parse_response(*, response: httpx.Response) -> Optional[Union[None, HTTPVal
     return None
 
 
-def _build_response(*, response: httpx.Response) -> Response[Union[None, HTTPValidationError]]:
+def _build_response(*, response: httpx.Response) -> Response[Union[HTTPValidationError, None]]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -49,11 +55,11 @@ def _build_response(*, response: httpx.Response) -> Response[Union[None, HTTPVal
 def sync_detailed(
     *,
     client: Client,
-    id: str,
-) -> Response[Union[None, HTTPValidationError]]:
+    name: str,
+) -> Response[Union[HTTPValidationError, None]]:
     kwargs = _get_kwargs(
         client=client,
-        id=id,
+        name=name,
     )
 
     response = httpx.get(
@@ -66,24 +72,28 @@ def sync_detailed(
 def sync(
     *,
     client: Client,
-    id: str,
-) -> Optional[Union[None, HTTPValidationError]]:
-    """  """
+    name: str,
+) -> Optional[Union[HTTPValidationError, None]]:
+    """Generates a v4 signed URL for downloading a blob.
+
+    Note that this method requires a service account key file. You can not use
+    this if you are using Application Default Credentials from Google Compute
+    Engine or from the Google Cloud SDK."""
 
     return sync_detailed(
         client=client,
-        id=id,
+        name=name,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: Client,
-    id: str,
-) -> Response[Union[None, HTTPValidationError]]:
+    name: str,
+) -> Response[Union[HTTPValidationError, None]]:
     kwargs = _get_kwargs(
         client=client,
-        id=id,
+        name=name,
     )
 
     async with httpx.AsyncClient() as _client:
@@ -95,13 +105,17 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Client,
-    id: str,
-) -> Optional[Union[None, HTTPValidationError]]:
-    """  """
+    name: str,
+) -> Optional[Union[HTTPValidationError, None]]:
+    """Generates a v4 signed URL for downloading a blob.
+
+    Note that this method requires a service account key file. You can not use
+    this if you are using Application Default Credentials from Google Compute
+    Engine or from the Google Cloud SDK."""
 
     return (
         await asyncio_detailed(
             client=client,
-            id=id,
+            name=name,
         )
     ).parsed

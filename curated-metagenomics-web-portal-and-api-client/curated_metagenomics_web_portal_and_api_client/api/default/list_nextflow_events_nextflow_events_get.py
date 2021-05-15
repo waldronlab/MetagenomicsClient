@@ -34,7 +34,7 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, response: httpx.Response) -> Optional[Union[NFCollection, HTTPValidationError]]:
+def _parse_response(*, response: httpx.Response) -> Optional[Union[HTTPValidationError, NFCollection]]:
     if response.status_code == 200:
         response_200 = NFCollection.from_dict(response.json())
 
@@ -46,7 +46,7 @@ def _parse_response(*, response: httpx.Response) -> Optional[Union[NFCollection,
     return None
 
 
-def _build_response(*, response: httpx.Response) -> Response[Union[NFCollection, HTTPValidationError]]:
+def _build_response(*, response: httpx.Response) -> Response[Union[HTTPValidationError, NFCollection]]:
     return Response(
         status_code=response.status_code,
         content=response.content,
@@ -60,7 +60,7 @@ def sync_detailed(
     client: Client,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
-) -> Response[Union[NFCollection, HTTPValidationError]]:
+) -> Response[Union[HTTPValidationError, NFCollection]]:
     kwargs = _get_kwargs(
         client=client,
         limit=limit,
@@ -79,8 +79,8 @@ def sync(
     client: Client,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
-) -> Optional[Union[NFCollection, HTTPValidationError]]:
-    """  """
+) -> Optional[Union[HTTPValidationError, NFCollection]]:
+    """ """
 
     return sync_detailed(
         client=client,
@@ -94,7 +94,7 @@ async def asyncio_detailed(
     client: Client,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
-) -> Response[Union[NFCollection, HTTPValidationError]]:
+) -> Response[Union[HTTPValidationError, NFCollection]]:
     kwargs = _get_kwargs(
         client=client,
         limit=limit,
@@ -112,8 +112,8 @@ async def asyncio(
     client: Client,
     limit: Union[Unset, int] = 100,
     offset: Union[Unset, int] = 0,
-) -> Optional[Union[NFCollection, HTTPValidationError]]:
-    """  """
+) -> Optional[Union[HTTPValidationError, NFCollection]]:
+    """ """
 
     return (
         await asyncio_detailed(

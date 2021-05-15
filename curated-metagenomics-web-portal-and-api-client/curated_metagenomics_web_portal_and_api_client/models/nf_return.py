@@ -20,8 +20,8 @@ class NFReturn:
     event: str
     utc_time: datetime.datetime
     event_id: int
-    trace: Union[NFReturnTrace, Unset] = UNSET
-    metadata: Union[NFReturnMetadata, Unset] = UNSET
+    trace: Union[Unset, NFReturnTrace] = UNSET
+    metadata: Union[Unset, NFReturnMetadata] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -43,10 +43,10 @@ class NFReturn:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "run_name": run_name,
-                "run_id": run_id,
+                "runName": run_name,
+                "runId": run_id,
                 "event": event,
-                "utc_time": utc_time,
+                "utcTime": utc_time,
                 "event_id": event_id,
             }
         )
@@ -60,24 +60,28 @@ class NFReturn:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        run_name = d.pop("run_name")
+        run_name = d.pop("runName")
 
-        run_id = d.pop("run_id")
+        run_id = d.pop("runId")
 
         event = d.pop("event")
 
-        utc_time = isoparse(d.pop("utc_time"))
+        utc_time = isoparse(d.pop("utcTime"))
 
         event_id = d.pop("event_id")
 
-        trace: Union[NFReturnTrace, Unset] = UNSET
         _trace = d.pop("trace", UNSET)
-        if not isinstance(_trace, Unset):
+        trace: Union[Unset, NFReturnTrace]
+        if isinstance(_trace, Unset):
+            trace = UNSET
+        else:
             trace = NFReturnTrace.from_dict(_trace)
 
-        metadata: Union[NFReturnMetadata, Unset] = UNSET
         _metadata = d.pop("metadata", UNSET)
-        if not isinstance(_metadata, Unset):
+        metadata: Union[Unset, NFReturnMetadata]
+        if isinstance(_metadata, Unset):
+            metadata = UNSET
+        else:
             metadata = NFReturnMetadata.from_dict(_metadata)
 
         nf_return = cls(

@@ -9,7 +9,7 @@ T = TypeVar("T", bound="StorageEventCollection")
 
 @attr.s(auto_attribs=True)
 class StorageEventCollection:
-    """  """
+    """ """
 
     hits: List[StorageEventReturn]
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)

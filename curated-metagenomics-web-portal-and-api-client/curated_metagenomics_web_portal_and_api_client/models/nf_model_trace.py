@@ -7,7 +7,7 @@ T = TypeVar("T", bound="NFModelTrace")
 
 @attr.s(auto_attribs=True)
 class NFModelTrace:
-    """  """
+    """ """
 
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
